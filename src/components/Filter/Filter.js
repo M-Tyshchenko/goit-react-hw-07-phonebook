@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { FormField, FormItem, Wrapper } from './Filter.styled';
 import { changeFilterByName } from 'redux/filterSlice';
-import { getFilterByName } from 'redux/selectors';
+import { selectFilterByName } from 'redux/selectors';
 
 export const Filter = () => {
   const dispatch = useDispatch();
-  const filterByName = useSelector(getFilterByName);
+  const filterByName = useSelector(selectFilterByName);
 
   return (
     <Wrapper>

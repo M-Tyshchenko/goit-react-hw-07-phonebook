@@ -1,36 +1,27 @@
-// import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DeleteBtn, List, ListItem, Marker } from './ContactList.styled';
-import { deleteContact } from 'redux/contactsSlice';
-import { getContacts, getFilterByName } from 'redux/selectors';
+import { selectVisibleContacts } from 'redux/selectors';
+import { deleteContact } from 'redux/operations';
 
-// const localStorageKey = 'contacts';
 
-const getVisibleContacts = (contacts, filter) =>
-  contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
 
 export const ContactList = () => {
-  const contacts = useSelector(getContacts);
-  const filterByName = useSelector(getFilterByName);
-  const visibleContacts = getVisibleContacts(contacts, filterByName);
+ 
+  const contacts = useSelector(selectVisibleContacts);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   localStorage.setItem(localStorageKey, JSON.stringify(contacts));
-  // }, [contacts]);
 
   return (
     <List>
-      {visibleContacts.map(contact => (
+      {contacts.map(contact => (
         <ListItem key={contact.id}>
           <Marker></Marker>
           <p>
-            {contact.name}: {contact.number}
+            {contact.name}: {contact.phone}
           </p>
 
-          <DeleteBtn onClick={() => dispatch(deleteContact(contact.id))}>
+          <DeleteBtn
+            onClick={() => dispatch(deleteContact(Number(contact.id)))}
+          >
             Delete
           </DeleteBtn>
         </ListItem>
