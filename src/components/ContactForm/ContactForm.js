@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-// import { nanoid } from 'nanoid';
 import toast, { Toaster } from 'react-hot-toast';
 import { selectContacts } from 'redux/selectors';
 import {
@@ -26,9 +25,8 @@ export const ContactForm = () => {
     <>
       <Formik
         initialValues={{
-          // createdAt: Date.now(),
           name: '',
-          phone: '',
+          number: '',
         }}
         validationSchema={schema}
         onSubmit={(values, actions) => {
@@ -38,7 +36,7 @@ export const ContactForm = () => {
                 contact.name.toLowerCase() === values.name.toLowerCase()
             ) === undefined
           ) {
-            dispatch(addContact({ values }));
+            dispatch(addContact({ ...values }));
             actions.resetForm();
             return;
           }
@@ -62,10 +60,10 @@ export const ContactForm = () => {
             Number
             <StyledField
               type="tel"
-              name="phone"
+              name="number"
               title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             />
-            <ErrMessage name="phone" component="div" />
+            <ErrMessage name="number" component="div" />
           </FormItem>
           <SubmitBtn type="submit">Add contact</SubmitBtn>
         </StyledForm>
