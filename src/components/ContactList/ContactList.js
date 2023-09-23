@@ -3,10 +3,7 @@ import { DeleteBtn, List, ListItem, Marker } from './ContactList.styled';
 import { selectVisibleContacts } from 'redux/selectors';
 import { deleteContact } from 'redux/operations';
 
-
-
 export const ContactList = () => {
- 
   const contacts = useSelector(selectVisibleContacts);
   const dispatch = useDispatch();
 
@@ -16,12 +13,10 @@ export const ContactList = () => {
         <ListItem key={contact.id}>
           <Marker></Marker>
           <p>
-            {contact.name}: {contact.phone}
+            {contact.name}: {contact.number}
           </p>
 
-          <DeleteBtn
-            onClick={() => dispatch(deleteContact(Number(contact.id)))}
-          >
+          <DeleteBtn onClick={() => dispatch(deleteContact(contact.id))}>
             Delete
           </DeleteBtn>
         </ListItem>
